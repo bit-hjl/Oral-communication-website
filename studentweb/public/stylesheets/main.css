@@ -1,0 +1,133 @@
+* {
+    box-sizing: border-box;
+}
+body{
+    margin: 0px;
+}
+.menu-icon{
+    width: 2.0rem;
+    height: 1rem;
+    border-top: 0.2rem solid #ffffff;
+    border-bottom:0.2rem solid #ffffff;
+    background-color: #ffffff;
+    padding: 0.1rem 0;
+    margin-top:1.8rem;
+    background-clip:content-box;
+}
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.row:after {
+    content: "";
+    clear: both;
+    display: block;
+}
+[class*="col-"] {
+    float: left;
+    padding: 15px;
+}
+
+.col-friend {width: 100%;
+    overflow-y: auto;
+    height: calc(85vh);
+    background-image: url("http://bithjl.cn/images/friend.jpg");
+    background-repeat:no-repeat;
+    background-size: 100% 100%;
+    -moz-background-size: 100% 100%;
+}
+.col-myfriend {width: 100%;
+    overflow-y: auto;
+    height: calc(85vh);
+    background-image: url("http://bithjl.cn/images/myfriend.jpg");
+    background-repeat:no-repeat;
+    background-size: 100% 100%;
+}
+.col-change {width: 100%;
+    overflow-y: auto;
+    height: calc(85vh);
+    background-image: url("http://bithjl.cn/images/change.jpg");
+    background-repeat:no-repeat;
+    background-size: 100% 100%;
+}
+.changeh {
+    color: #FFFFFF;
+}
+.col-change input {
+    width: 320px;
+    display: block;
+    height: 36px;
+    border: 0;
+    outline: 0;
+    padding: 6px 10px;
+    line-height: 24px;
+    margin: 32px auto;
+    -webkit-transition: all 0s ease-in 0.1ms;
+    -moz-transition: all 0s ease-in 0.1ms;
+    transition: all 0s ease-in 0.1ms;
+}
+.col-change input[type="text"] , .col-change input[type="number"] ,.col-change input[type="password"] {
+    background-color: #FFFFFF;
+    font-size: 16px;
+    color: #50a3a2;
+}
+.col-my {
+    background-image: url("http://bithjl.cn/images/bg_1.jpg");
+    background-repeat:no-repeat;
+    background-size: 100% 100%;
+    width: 100%;
+    overflow-y: auto;
+    height: calc(85vh);
+}
+
+.new{
+    text-align: center;
+}
+html {
+    font-family: "Lucida Sans", sans-serif;
+}
+.header {
+    background-color: black;
+    color:white;
+    padding: 30px;
+    width:100%;
+    height: calc(15vh);
+}
+
+button
+{ /* 按钮美化 */
+    width: 200px; /* 宽度 */
+    height: 40px; /* 高度 */
+    border-width: 0px; /* 边框宽度 */
+    border-radius: 3px; /* 边框半径 */
+    background: #1E90FF; /* 背景颜色 */
+    cursor: pointer; /* 鼠标移入按钮范围时出现手势 */
+    outline: none; /* 不显示轮廓线 */
+    text-decoration:none;/*不显示下划线*/
+    font-family: Microsoft YaHei; /* 设置字体 */
+    color: white; /* 字体颜色 */
+    font-size: 17px; /* 字体大小 */
+}
+button:hover
+{ /* 鼠标移入按钮范围时改变颜色 */
+    background: red;
+}
+.col-get-send {
+    width: 100%;
+    overflow-y: auto;
+    height: calc(85vh);
+    background-image: url("http://bithjl.cn/images/get-send.jpg");
+    background-repeat:no-repeat;
+    background-size: 100% 100%;
+}

@@ -1,0 +1,130 @@
+doctype html
+html
+    head
+        meta(name='viewport', content='width=device-width, initial-scale=1.0')
+        meta(charset='utf-8')
+        title 大学生口语练习交友网站
+        script(src='http://bithjl.cn/javascripts/jquery-3.1.1.js')
+        script(src='/socket.io/socket.io.js')
+        script(src='http://bithjl.cn/javascripts/test.js')
+        script(src='http://bithjl.cn/javascripts/main.js')
+        script(src='http://bithjl.cn/javascripts/friend.js')
+        link(href='http://bithjl.cn/stylesheets/main.css', rel='stylesheet', type='text/css')
+    body
+        .header
+            .dropdown
+                span(style='font-family:Comic Sans MS;font-size:14px;')
+                    .menu-icon
+                br
+                .dropdown-content
+                    button#my 个人主页
+                    br
+                    button#change 修改个人信息
+                    br
+                    button#friend 去交友
+                    br
+                    button#get-send 收到的好友申请
+                    br
+                    button#del 账号注销
+                    br
+                    button#chat 在线聊天室
+        .row
+            #friend-part.col-friend(style='display:none;' name="main-part")
+                - var s = users.length;
+                    - var i = 0;
+                        while i < s
+                            h2 昵称：#{users[i].username} <html>&nbsp;&nbsp;</html> TA想要学习的语言：#{users[i].want}
+                            button(id = "look" + i,onclick="look(this.id)") 查看TA的详细信息
+                            div(id = "user"+ i style="display:none;" name="main-part")
+                                h2.new(id="username" + i ) 昵称：#{users[i].username}
+                                h2.new 爱好：#{users[i].hobby}
+                                h2.new 母语：#{users[i].mothertongue}
+                                h2.new 想要学习的语言：#{users[i].want}
+                                h2.new 该语言目前的水平：#{users[i].power}
+                                div(align="center")
+                                    button(id="call"+i onclick='make(this.id)') 向TA发送好友请求
+                                    br
+                                    br
+                                    button(onclick="back()") 返回
+                            - i = i + 1;
+            #my-part.col-my(name="main-part")
+                h1.new 欢迎回来 #{my[0].username}
+                br
+                h2.new 兴趣爱好：#{my[0].hobby}
+                br
+                h2.new 想要学习的语言：#{my[0].want}
+                br
+                h2.new 该语言目前的水平：#{my[0].power}
+                br
+                h2.new 微信号：#{my[0].WX}
+                br
+                h2.new 母语：#{my[0].mothertongue}
+                br
+                h2.new 您的真实姓名：#{my[0].name}
+                br
+                h2.new 您的学号：#{my[0].studentid}
+                br
+                div(align='center')
+                    button#myfriend 查看我的好友
+            #change-part.col-change(style='display:none;' name="main-part")
+                h3.changeh 说明1：更改密码需要输入旧密码，更改其余选项不需要。
+                h3.changeh 说明2：更改信息只需要在更改部分输入即可，不需要重新填写其余部分
+                h3.changeh 说明3：真实姓名和学号属于用户固有信息因此更改需要联系管理员
+                input#username(type='text', placeholder='更改用户名(change username)', name='username')
+                input#password(type='password', placeholder='旧密码(old password)', name='password')
+                input#repassword(type='password', placeholder='新密码(write your new password)', name='newpassword')
+                input#mothertongue(type='text', placeholder='母语及其他(mother tongue)', name='mothertonge')
+                input#want(type='text',placeholder='想要练习的口语(the language you want to practice)', name='want')
+                input#power(type='text',placeholder='口语水平(Oral proficiency)',name='Oral proficiency')
+                input#hobby(type='text',placeholder='爱好(hobby)', name='hobby')
+                input#WX(type='text',placeholder='微信(WeChat)',name='WeChat')
+                div(align='center')
+                    button#recreate 更改信息
+            #myfriend-part.col-myfriend(style='display:none;' name="main-part")
+                h1(align="center" style="color:purple") 您的好友 <html><br></html>
+                -var len = friend.length;
+                -var i = 0;
+                while i < len
+                    h2.new(id="friend" + i) 昵称：#{friend[i].username}
+                    h2.new 爱好：#{friend[i].hobby}
+                    h2.new 母语：#{friend[i].mothertongue}
+                    h2.new 想要学习的语言：#{friend[i].want}
+                    h2.new 该语言目前的水平：#{friend[i].power}
+                    h2.new 微信号：#{friend[i].WX}
+                    div(align = "center")
+                        button(id="delfriend" + i onclick='delfriend(this.id)') 删除好友
+                    -i = i + 1;
+            #get-send-part.col-get-send(style='display:none;' name="main-part")
+                h1(align="center" style="color:purple") 您的申请 <html><br></html>
+                -var lcall =call.length;
+                -var lcalled = called.length;
+                -var i = 0;
+                    while i < lcall
+                        h2.new(id="send" + i) 昵称：#{call[i].username}
+                        h2.new 爱好：#{call[i].hobby}
+                        h2.new 母语：#{call[i].mothertongue}
+                        h2.new 想要学习的语言：#{call[i].want}
+                        h2.new 该语言目前的水平：#{call[i].power}
+                        div(align = "center")
+                            button(id="delsend" + i onclick='delsend(this.id)') 撤销申请
+                        -i = i + 1;
+                -i = 0;
+                h1(align="center" style="color:purple") 您收到的申请 <html><br></html>
+                    while i < lcalled
+                        h2.new(id="get" + i) 昵称：#{called[i].username}
+                        h2.new 爱好：#{called[i].hobby}
+                        h2.new 母语：#{called[i].mothertongue}
+                        h2.new 想要学习的语言：#{called[i].want}
+                        h2.new 该语言目前的水平：#{called[i].power}
+                        div(align = "center")
+                            button(id="agree" + i onclick='agree(this.id)') 同意
+                            br
+                            br
+                            button(id="disagree" + i onclick='disagree(this.id)') 拒绝
+                        -i = i + 1;
+
+
+
+
+
+

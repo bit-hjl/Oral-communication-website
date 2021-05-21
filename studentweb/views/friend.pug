@@ -1,0 +1,17 @@
+doctype html
+html
+    head(lang='en')
+        meta(charset='UTF-8')
+        title 交友界面
+        script(src='http://bithjl.cn/javascripts/jquery-3.1.1.js')
+    body
+        - var s = users.length;
+        - var i = 0;
+        p #{s}
+        while i < s
+            h2 昵称： #{users[i].username}
+            p 爱好： #{users[i].hobby}
+            p 想要学习的语言：#{users[i].want}
+            p 该语言目前的水平：#{users[i].power}
+            p 母语：#{users[i].mothertongue}
+            - i = i + 1;

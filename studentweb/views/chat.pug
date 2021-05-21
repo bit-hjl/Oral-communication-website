@@ -1,0 +1,57 @@
+doctype html
+html
+    head
+        title Socket.IO chat
+        style.
+            .chat{
+                overflow-y: auto;
+                height: 450px;
+            }
+            * { margin: 0; padding: 0; box-sizing: border-box; }
+            body { font: 13px Helvetica, Arial; }
+            form {top:450px; background: black; padding: 3px; width: 100%;bottom: -50px; }
+            form input { border: 0; padding: 10px; width: 81%; margin-right: .5%; }
+            form button { width: 9%; background: rgb(130, 224, 255); padding: 10px; }
+            .in{height:110px;overflow-y: auto;top:600px}
+            #messages { list-style-type: none; margin: 0; padding: 0; }
+            #messages li { padding: 10px 15px; }
+            #messages li:nth-child(odd) { background: #eee; }
+            #come {list-style-type: none;margin: 0;padding: 0;}
+            #come li {padding: 5px 10px;}
+            #come li:nth-child(odd) {background: #eee;}
+            #come li:nth-child(even) {background: white;}
+    meta(content='width=device-width,height = device-height,user-scalable=no', name='viewport')
+    body
+        .chat
+            ul
+                #messages
+        form(action='')
+            input#m(autocomplete='off')
+            button 发送
+            button(onclick='javascript:history.back(-1);') 返回
+            .in
+                ul
+                    #come
+        script(src='/socket.io/socket.io.js')
+        script(src='http://libs.baidu.com/jquery/1.11.3/jquery.min.js')
+        script.
+            var socket = io();
+            console.log("连接");
+            console.log(socket);
+            $('form').submit(function(){
+                //点击发送按钮，提交输入的信息
+                var name = unescape(document.cookie.split("userName=")[1].split(";")[0]);
+                var send = name + ":" + $('#m').val();
+                socket.emit('chat message', send);
+                $('#m').val('');
+                return false;
+            });
+            //接收到chat message时
+            socket.on('chat message', function(msg){
+                //将chat message显示在页面
+                $('#messages').append($('<li>').text(msg));
+            });
+            socket.on('come message', function (msg) {
+                //将chat message显示在页面
+                $('#come').append($('<li>').text(msg));
+            });
